@@ -48,9 +48,11 @@ int demo_protocols[] =
 #define MIN_DEDICATED_COMHUNKMEGS 1
 #define MIN_COMHUNKMEGS		128
 #define DEF_COMHUNKMEGS 	256
-#define DEF_COMZONEMEGS		32
+//#define DEF_COMZONEMEGS		32
+#define DEF_COMZONEMEGS "64"     // cybdmn adapted from RealRTCW 2.0
 #define DEF_COMHUNKMEGS_S	XSTRING(DEF_COMHUNKMEGS)
 #define DEF_COMZONEMEGS_S	XSTRING(DEF_COMZONEMEGS)
+
 
 int com_argc;
 char    *com_argv[MAX_NUM_ARGVS + 1];
