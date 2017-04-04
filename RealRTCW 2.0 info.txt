@@ -1,0 +1,12 @@
+RealRTCW on iortcw
+
+This fork of iortcw contains changes made by wolfETplayer for his RealRTCW mod in version 2.0 which is available on windows only.
+
+I transferred the changes to iortcw, for it’s more actively maintained by including changes from ioquake3 and it is easy available on more platforms than Microsoft Windows.
+
+The code should compile like the iortcw source. Tested at the moment just for Mac x86_64 with XCode 7, using make-macosx_xcode5.sh.
+
+
+This fork contains the source for the binary only, z_realrtcw.pk3 is not included, and remains in the original RealRTCW 2.0 mod. But it is required to play this mod.
+
+The changes are made to the SP part only, MP is left untouched.
