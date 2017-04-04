@@ -52,10 +52,13 @@ If you have questions concerning this license or the applicable additional terms
 //
 //=================================================================================
 
-#define HELGA_SPIRIT_BUILDUP_TIME       8000    // last for this long
-#define HELGA_SPIRIT_FADEOUT_TIME       1000
+//#define HELGA_SPIRIT_BUILDUP_TIME       8000    // last for this long
+//#define HELGA_SPIRIT_FADEOUT_TIME       1000
+#define HELGA_SPIRIT_BUILDUP_TIME       5000    // cybdmn adapted from RealRTCW 2.0
+#define HELGA_SPIRIT_FADEOUT_TIME       500    // cybdmn adapted from RealRTCW 2.0
 #define HELGA_SPIRIT_DLIGHT_RADIUS_MAX  384
-#define HELGA_SPIRIT_FIRE_INTERVAL      1000
+//#define HELGA_SPIRIT_FIRE_INTERVAL      1000
+#define HELGA_SPIRIT_FIRE_INTERVAL      800   // cybdmn adapted from RealRTCW 2.0
 
 extern int lastZombieSpiritAttack;
 
@@ -142,9 +145,9 @@ int helgaHitTimes[NUM_HELGA_ANIMS][MAX_HELGA_IMPACTS] = {   // up to three hits 
 	{ANIMLENGTH( 10,20 ),ANIMLENGTH( 17,20 ),ANIMLENGTH( 26,20 )},
 };
 int helgaHitDamage[NUM_HELGA_ANIMS] = {
-	20,
-	14,
-	12
+    50, // cybdmn adapted from RealRTCW 2.0, old values: 20,14,12
+    40,
+    30
 };
 
 /*
@@ -382,7 +385,8 @@ void AICast_Heinrich_Taunt( cast_state_t *cs ) {
 }
 
 #define HEINRICH_LUNGE_DELAY    ANIMLENGTH( 15,20 )
-#define HEINRICH_LUNGE_RANGE    170
+//#define HEINRICH_LUNGE_RANGE    170
+#define HEINRICH_LUNGE_RANGE    200  // cybdmn adapted from RealRTCW 2.0
 #define HEINRICH_LUNGE_DAMAGE   ( 50 + rand() % 20 )
 
 char *AIFunc_Heinrich_SwordLunge( cast_state_t *cs ) {
@@ -480,7 +484,8 @@ char *AIFunc_Heinrich_SwordLungeStart( cast_state_t *cs ) {
 }
 
 #define HEINRICH_KNOCKBACK_DELAY    ANIMLENGTH( 26,20 )
-#define HEINRICH_KNOCKBACK_RANGE    150
+//#define HEINRICH_KNOCKBACK_RANGE    150
+#define HEINRICH_KNOCKBACK_RANGE    180  // cybdmn adapted from RealRTCW 2.0
 #define HEINRICH_KNOCKBACK_DAMAGE   ( 60 + rand() % 20 )
 
 char *AIFunc_Heinrich_SwordKnockback( cast_state_t *cs ) {
@@ -573,7 +578,8 @@ char *AIFunc_Heinrich_SwordKnockbackStart( cast_state_t *cs ) {
 }
 
 #define HEINRICH_SLASH_DELAY    ANIMLENGTH( 17,25 )
-#define HEINRICH_SLASH_RANGE    140
+//#define HEINRICH_SLASH_RANGE    140
+#define HEINRICH_SLASH_RANGE    180   // cybdmn adapted from RealRTCW 2.0
 #define HEINRICH_SLASH_DAMAGE   ( 30 + rand() % 15 )
 
 char *AIFunc_Heinrich_SwordSideSlash( cast_state_t *cs ) {
@@ -672,7 +678,8 @@ char *AIFunc_Heinrich_SwordSideSlashStart( cast_state_t *cs ) {
 #define HEINRICH_STOMP_DELAY        900
 #define HEINRICH_STOMP_RANGE        1024.0
 #define HEINRICH_STOMP_VELOCITY_Z   420
-#define HEINRICH_STOMP_DAMAGE       35
+//#define HEINRICH_STOMP_DAMAGE       35
+#define HEINRICH_STOMP_DAMAGE       40   // cybdmn adapted from RealRTCW 2.0
 
 char *AIFunc_Heinrich_Earthquake( cast_state_t *cs ) {
 	gentity_t   *ent = &g_entities[cs->entityNum];
@@ -828,7 +835,8 @@ char *AIFunc_Heinrich_MeleeStart( cast_state_t *cs ) {
 	return NULL;
 }
 
-#define HEINRICH_RAISEDEAD_DELAY        1200
+//#define HEINRICH_RAISEDEAD_DELAY        1200
+#define HEINRICH_RAISEDEAD_DELAY        1000   // cybdmn adapted from RealRTCW 2.0
 #define HEINRICH_RAISEDEAD_COUNT        3
 int lastRaise;
 

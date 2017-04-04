@@ -155,7 +155,8 @@ AICharacterDefaults_t aiDefaults[NUM_CHARACTERS] = {
 			200,        // running speed		//----(SA)	DK requested change
 			60,         // walking speed		//----(SA)	DK requested change
 			80,         // crouching speed
-			90,         // Field of View
+			//90,         // Field of View
+            180,        // Field of View  // cybdmn adapted from RealRTCW 2.0
 			350,        // Yaw Speed
 			0.0,        // leader
 			0.70,       // aim skill
@@ -201,10 +202,12 @@ AICharacterDefaults_t aiDefaults[NUM_CHARACTERS] = {
 	{
 		"WarriorZombie",
 		{
-			250,        // running speed	(SA) upped from 200->250 per Mike/DK
+			//250,        // running speed	(SA) upped from 200->250 per Mike/DK
+            300,        // running speed // cybdmn adapted from RealRTCW 2.0
 			60,         // walking speed
 			80,         // crouching speed
-			90,         // Field of View
+			//90,         // Field of View
+            180,        // Field of View        // cybdmn adapted from RealRTCW 2.0
 			350,        // Yaw Speed
 			0.0,        // leader
 			0.70,       // aim skill
@@ -350,7 +353,8 @@ AICharacterDefaults_t aiDefaults[NUM_CHARACTERS] = {
 	{
 		"Elite Guard",
 		{
-			230,        // running speed
+			//230,        // running speed
+            230,        // running speed // cybdmn adapted from RealRTCW 2.0
 			90,         // walking speed
 			100,        // crouching speed
 			90,         // Field of View
@@ -627,7 +631,8 @@ AICharacterDefaults_t aiDefaults[NUM_CHARACTERS] = {
 		AITEAM_NAZI,
 		"blackguard/default",
 //		{WP_MP40, WP_GRENADE_LAUNCHER, WP_MONSTER_ATTACK1},					// attack1 is melee kick
-		{WP_FG42, WP_FG42SCOPE, WP_GRENADE_LAUNCHER, WP_MONSTER_ATTACK1},	// attack1 is melee kick
+		//{WP_FG42, WP_FG42SCOPE, WP_GRENADE_LAUNCHER, WP_MONSTER_ATTACK1},	// attack1 is melee kick
+        {WP_FG42, WP_GRENADE_LAUNCHER, WP_MONSTER_ATTACK1}, // cybdmn adapted from RealRTCW 2.0
 		BBOX_SMALL, {32,48},
 		AIFL_CATCH_GRENADE | AIFL_FLIP_ANIM | AIFL_STAND_IDLE2,
 		AIFunc_BlackGuardAttack1Start, 0, 0,
@@ -783,10 +788,12 @@ AICharacterDefaults_t aiDefaults[NUM_CHARACTERS] = {
 	{
 		"Heinrich",
 		{
-			170,        // running speed
+			//170,        // running speed
+            250,        // running speed // cybdmn adapted from RealRTCW 2.0
 			100,        // walking speed
 			90,         // crouching speed
-			90,         // Field of View
+			//90,         // Field of View
+            180,         // Field of View  // cybdmn adapted from RealRTCW 2.0
 			130,        // Yaw Speed
 			0.0,        // leader
 			0.7,        // aim skill

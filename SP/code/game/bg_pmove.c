@@ -53,7 +53,8 @@ float Com_GetFlamethrowerRange( void ) {
 	if ( cg_gameType.integer != GT_SINGLE_PLAYER ) {
 		return 2500; // multiplayer range is longer for balance
 	} else {
-		return 1250; // single player range remains unchanged
+		//return 1250; // single player range remains unchanged
+        return 1600; // cybdmn adapted from RealRTCW 2.0
 	}
 #endif
 #ifdef GAMEDLL
@@ -435,8 +436,22 @@ static float PM_CmdScale( usercmd_t *cmd ) {
 	if ( g_gametype.integer != GT_SINGLE_PLAYER )
 #endif
 	{
-		if ( ( pm->ps->weapon == WP_VENOM ) || ( pm->ps->weapon == WP_PANZERFAUST ) ) {
-			scale *= 0.5;
+		//if ( ( pm->ps->weapon == WP_VENOM ) || ( pm->ps->weapon == WP_PANZERFAUST ) ) {
+		//	scale *= 0.5;
+        
+// cybdmn adapted from RealRTCW 2.0 start
+        
+        if ( ( pm->ps->weapon == WP_VENOM ) || ( pm->ps->weapon == WP_PANZERFAUST ) || ( pm->ps->weapon == WP_FLAMETHROWER ) || ( pm->ps->weapon == WP_TESLA ) || ( pm->ps->weapon == WP_MG42M ) ) {
+            scale *= 0.75;
+        }
+        if ( ( pm->ps->weapon == WP_MP40 ) || ( pm->ps->weapon == WP_THOMPSON ) || ( pm->ps->weapon == WP_STEN ) || ( pm->ps->weapon == WP_MP34 ) || ( pm->ps->weapon == WP_FG42 ) || ( pm->ps->weapon == WP_MAUSER ) || ( pm->ps->weapon == WP_MP44 ) || ( pm->ps->weapon == WP_GARAND ) || ( pm->ps->weapon == WP_G43 ) || ( pm->ps->weapon == WP_BAR )  || ( pm->ps->weapon == WP_M1GARAND )  || ( pm->ps->weapon == WP_PPSH ) || ( pm->ps->weapon == WP_MOSIN ) )  {
+            scale *= 0.90;
+        }
+        if ( ( pm->ps->weapon == WP_LUGER ) || ( pm->ps->weapon == WP_COLT ) || ( pm->ps->weapon == WP_AKIMBO ) || ( pm->ps->weapon == WP_SILENCER ) || ( pm->ps->weapon == WP_DYNAMITE ) || ( pm->ps->weapon == WP_GRENADE_LAUNCHER ) || ( pm->ps->weapon == WP_GRENADE_PINEAPPLE )  || ( pm->ps->weapon == WP_TT33 ) ) {
+            scale *= 0.95;
+
+// cybdmn adapted from RealRTCW 2.0 end
+        
 		}
 	}
 // jpw
@@ -533,8 +548,9 @@ static qboolean PM_CheckJump( void ) {
 	// JPW NERVE -- jumping in multiplayer uses and requires sprint juice (to prevent turbo skating, sprint + jumps)
 	// don't allow jump accel
 //	if (pm->cmd.serverTime - pm->ps->jumpTime < 850)
-	if ( pm->cmd.serverTime - pm->ps->jumpTime < 500 ) {  // (SA) trying shorter time.  I find this effect annoying ;)
-		return qfalse;
+	//if ( pm->cmd.serverTime - pm->ps->jumpTime < 500 ) {  // (SA) trying shorter time.  I find this effect annoying ;)
+        if ( pm->cmd.serverTime - pm->ps->jumpTime < 950 ) {   // cybdmn adapted from RealRTCW 2.0
+        return qfalse;
 	}
 
 	if ( pm->ps->pm_flags & PMF_RESPAWNED ) {
@@ -2615,6 +2631,39 @@ void PM_AdjustAimSpreadScale( void ) {
 //		wpnScale = 1.3f;
 		wpnScale = 0.6f;
 		break;
+            
+// cybdmn adapted from RealRTCW 2.0 start
+            
+        case WP_TT33:
+            wpnScale = 0.4f;
+            break;
+        case WP_MG42M:
+            wpnScale = 0.6f;
+            break;
+        case WP_MOSIN:
+            wpnScale = 0.5f;
+            break;
+        case WP_G43:
+            wpnScale = 0.5f;
+            break;
+        case WP_M1GARAND:
+            wpnScale = 0.5f;
+            break;
+        case WP_MP34:
+            wpnScale = 0.5f;
+            break;
+        case WP_MP44:
+            wpnScale = 0.6f;
+            break;
+        case WP_BAR:
+            wpnScale = 0.6f;
+            break;
+        case WP_PPSH:
+            wpnScale = 0.5f;
+            break;
+            
+// cybdmn adapted from RealRTCW 2.0 end
+
 	}
 
 	if ( wpnScale ) {
@@ -3127,6 +3176,17 @@ static void PM_Weapon( void ) {
 	case WP_VENOM:
 	case WP_FG42:
 	case WP_FG42SCOPE:
+            
+// cybdmn adapted from RealRTCW 2.0 start
+            
+    case WP_MP34:
+    case WP_PPSH:
+    case WP_MG42M:
+    case WP_MP44:
+    case WP_BAR:
+            
+// cybdmn adapted from RealRTCW 2.0 end
+            
 		if ( !weaponstateFiring ) {
 			if ( pm->ps->aiChar && pm->ps->weapon == WP_VENOM ) {
 				// AI get fast spin-up
@@ -3148,6 +3208,17 @@ static void PM_Weapon( void ) {
 	case WP_SNOOPERSCOPE:
 	case WP_MAUSER:
 	case WP_GARAND:
+            
+// cybdmn adapted from RealRTCW 2.0 start
+            
+    case WP_TT33:
+    case WP_G43:
+    case WP_M1GARAND:
+    case WP_MOSIN:
+            
+// cybdmn adapted from RealRTCW 2.0 end
+            
+            
 		if ( !weaponstateFiring ) {
 			// NERVE's panzerfaust spinup
 //			if (pm->ps->weapon == WP_PANZERFAUST)
@@ -3300,6 +3371,15 @@ static void PM_Weapon( void ) {
 
 	switch ( pm->ps->weapon ) {
 	case WP_MAUSER:
+
+// cybdmn adapted from RealRTCW 2.0 start
+            
+    case WP_MOSIN:
+    case WP_M1GARAND:
+    case WP_G43:
+            
+// cybdmn adapted from RealRTCW 2.0 end
+            
 	case WP_GRENADE_LAUNCHER:
 	case WP_GRENADE_PINEAPPLE:
 	case WP_DYNAMITE:
@@ -3309,6 +3389,17 @@ static void PM_Weapon( void ) {
 	case WP_MP40:
 	case WP_THOMPSON:
 	case WP_STEN:
+            
+// cybdmn adapted from RealRTCW 2.0 start
+            
+    case WP_MP34:
+    case WP_PPSH:
+    case WP_MP44:
+    case WP_BAR:
+    case WP_MG42M:
+            
+// cybdmn adapted from RealRTCW 2.0 end
+            
 		PM_ContinueWeaponAnim( weapattackanim );
 		break;
 
@@ -3361,6 +3452,18 @@ static void PM_Weapon( void ) {
 		addTime = ammoTable[pm->ps->weapon].nextShotTime;
 		aimSpreadScaleAdd = 20;
 		break;
+            
+// cybdmn adapted from RealRTCW 2.0 start
+            
+        case WP_TT33: // RealRTCW
+        addTime = ammoTable[pm->ps->weapon].nextShotTime;
+        aimSpreadScaleAdd = 20;
+        break;
+            
+// cybdmn adapted from RealRTCW 2.0 end
+
+            
+            
 //----(SA)	added
 	case WP_AKIMBO:
 		// if you're firing an akimbo colt, and your other gun is dry,
@@ -3378,6 +3481,15 @@ static void PM_Weapon( void ) {
 		break;
 //----(SA)	end
 	case WP_MAUSER:
+            
+// cybdmn adapted from RealRTCW 2.0 start
+            
+    case WP_G43:
+    case WP_M1GARAND:
+    case WP_MOSIN:
+            
+// cybdmn adapted from RealRTCW 2.0 end
+            
 	case WP_GARAND:
 		addTime = ammoTable[pm->ps->weapon].nextShotTime;
 		aimSpreadScaleAdd = 50;
@@ -3423,9 +3535,31 @@ static void PM_Weapon( void ) {
 	case WP_FG42:
 	case WP_MP40:
 	case WP_THOMPSON:
+            
+// cybdmn adapted from RealRTCW 2.0 start
+
+    case WP_MP34:
+    case WP_PPSH:
+    case WP_MP44:
+    case WP_BAR:
+            
+// cybdmn adapted from RealRTCW 2.0 end
+            
 		addTime = ammoTable[pm->ps->weapon].nextShotTime;
 		aimSpreadScaleAdd = 15 + rand() % 10;       // (SA) new values for DM
 		break;
+            
+// cybdmn adapted from RealRTCW 2.0 start
+            
+    case WP_MG42M: //RealRTCW
+        addTime = ammoTable[pm->ps->weapon].nextShotTime;
+        aimSpreadScaleAdd = 15 + rand() % 10;       // (SA) new values for DM
+        break;
+            
+// cybdmn adapted from RealRTCW 2.0 end
+            
+            
+            
 	case WP_STEN:
 		addTime = ammoTable[pm->ps->weapon].nextShotTime;
 		aimSpreadScaleAdd = 15 + rand() % 10;       // (SA) new values for DM

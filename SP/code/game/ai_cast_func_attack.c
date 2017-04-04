@@ -158,10 +158,12 @@ AIFunc_ZombieAttack2()
 */
 extern void weapon_zombiespirit( gentity_t *ent, gentity_t *missile );
 
-#define ZOMBIE_SPIRIT_BUILDUP_TIME      6000    // last for this long
+//#define ZOMBIE_SPIRIT_BUILDUP_TIME      6000    // last for this long
+#define ZOMBIE_SPIRIT_BUILDUP_TIME      4000    // cybdmn adapted from RealRTCW 2.0
 #define ZOMBIE_SPIRIT_FADEOUT_TIME      1000
 #define ZOMBIE_SPIRIT_DLIGHT_RADIUS_MAX 256
-#define ZOMBIE_SPIRIT_FIRE_INTERVAL     1000
+//#define ZOMBIE_SPIRIT_FIRE_INTERVAL     1000
+#define ZOMBIE_SPIRIT_FIRE_INTERVAL     100   // cybdmn adapted from RealRTCW 2.0
 
 int lastZombieSpiritAttack;
 
@@ -230,12 +232,12 @@ AIFunc_ZombieMelee
 ================
 */
 
-int zombieHitDamage[5] = {
-	16,
-	16,
-	16,
-	12,
-	20
+int zombieHitDamage[5] = { // cybdmn adapted from RealRTCW 2.0, old values: 16,16,16,12,20
+    30,
+    25,
+    20,
+    20,
+    20
 };
 
 #define NUM_ZOMBIE_ANIMS    5
@@ -919,12 +921,12 @@ char *AIFunc_RejectAttack1Start( cast_state_t *cs ) {
 //
 //=================================================================================
 
-int warriorHitDamage[5] = {
-	16,
-	16,
-	16,
-	12,
-	20
+int warriorHitDamage[5] = { // cybdmn adapted from RealRTCW 2.0, old values: 16,16,16,12,20.
+    40,
+    38,
+    35,
+    34,
+    30
 };
 
 #define NUM_WARRIOR_ANIMS   5

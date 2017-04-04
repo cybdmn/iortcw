@@ -50,11 +50,31 @@ extern vmCvar_t g_gametype;
 #define MAX_AMMO_45     300
 #define MAX_AMMO_9MM    300
 #define MAX_AMMO_VENOM  1000
-#define MAX_AMMO_MAUSER 200
+//#define MAX_AMMO_MAUSER 200
+#define MAX_AMMO_MAUSER		300   // cybdmn adapted from RealRTCW 2.0
 #define MAX_AMMO_GARAND 10
 #define MAX_AMMO_FG42   MAX_AMMO_MAUSER
 #define MAX_AMMO_BAR    200
 
+// cybdmn adapted from RealRTCW 2.0 start
+
+#define MAX_AMMO_TTAMMO     300
+#define MAX_AMMO_44AMMO     180
+#define MAX_AMMO_BARAMMO    200
+#define MAX_AMMO_MOSINA     100
+
+// cybdmn adapted from RealRTCW 2.0 end
+
+//adapted from Knightmare, changed by RealRTCW 2.0 start
+
+#define	MAX_GRENADES	8
+#define	MAX_PINEAPPLES	8
+#define	MAX_DYNAMITE	4
+#define	MAX_PF_ROCKETS	5
+#define	MAX_FUEL		200
+#define	MAX_CELLS		100
+
+//adapted from Knightmare, changed by RealRTCW 2.0 end
 
 // these defines are matched with the character torso animations
 #define DELAY_LOW       100 // machineguns, tesla, spear, flame
@@ -85,48 +105,43 @@ extern vmCvar_t g_gametype;
 //
 
 ammotable_t ammoTable[] = {
-	//	MAX				USES	MAX		RELOAD	FIRE			NEXT	HEAT,	COOL,	MOD,	...
-	//	AMMO			AMT.	CLIP	TIME	DELAY			SHOT
-	{   0,              0,      0,      0,      50,             0,      0,      0,      0                       },  //	WP_NONE					// 0
-
-	{   999,            0,      999,    0,      50,             200,    0,      0,      MOD_KNIFE               },  //	WP_KNIFE				// 1
-
-	{   MAX_AMMO_9MM,   1,      8,      1500,   DELAY_PISTOL,   400,    0,      0,      MOD_LUGER               },  //	WP_LUGER				// 2	// NOTE: also 32 round 'snail' magazine
-	{   MAX_AMMO_9MM,   1,      32,     2600,   DELAY_LOW,      100,    0,      0,      MOD_MP40                },  //	WP_MP40					// 3
-	{   MAX_AMMO_MAUSER,1,      10,     2500,   DELAY_HIGH,     1200,   0,      0,      MOD_MAUSER              },  //	WP_MAUSER				// 4	// NOTE: authentic clips are 5/10/25 rounds
-	{   MAX_AMMO_FG42,  1,      20,     2000,   DELAY_LOW,      200,    0,      0,      MOD_FG42                },  //	WP_FG42					// 5
-	{   15,             1,      15,     1000,   DELAY_THROW,    1600,   0,      0,      MOD_GRENADE_LAUNCHER    },  //	WP_GRENADE_LAUNCHER		// 6
-	{   5,              1,      1,      1000,   DELAY_SHOULDER, 2000,   0,      0,      MOD_PANZERFAUST         },  //	WP_PANZERFAUST			// 7
-//	{	MAX_AMMO_VENOM,	1,		500,	3000,	750,			30,		5000,	200,	MOD_VENOM				},	//	WP_VENOM				// -
-	{   MAX_AMMO_VENOM, 1,      500,    3000,   750,            45,     5000,   200,    MOD_VENOM               },  //	WP_VENOM				// 8	// JPW NOTE: changed next_shot 50->45 to genlock firing to every server frame (fire rate shouldn't be framerate dependent now)
-	{   150,            1,      150,    1000,   DELAY_LOW,      50,     0,      0,      MOD_FLAMETHROWER        },  //	WP_FLAMETHROWER			// 9
-	{   300,            1,      300,    1000,   DELAY_LOW,      0,      0,      0,      MOD_TESLA               },  //	WP_TESLA				// 10
-//	{	50,				1,		50,		1000,	DELAY_LOW,		1200,	0,		0,		MOD_SPEARGUN			},	//	WP_SPEARGUN				// 11
-
-//	{	999,			0,		999,	0,		50,				200,	0,		0,		MOD_KNIFE2				},	//	WP_KNIFE2				// 12
-	{   MAX_AMMO_45,    1,      8,      1500,   DELAY_PISTOL,   400,    0,      0,      MOD_COLT                },  //	WP_COLT					// 13
-	{   MAX_AMMO_45,    1,      30,     2400,   DELAY_LOW,      120,    0,      0,      MOD_THOMPSON            },  //	WP_THOMPSON				// 14	// NOTE: also 50 round drum magazine
-	{   MAX_AMMO_GARAND,1,      5,      2500,   DELAY_HIGH,     1200,   0,      0,      MOD_GARAND              },  //	WP_GARAND				// 15	// NOTE: always 5 round clips
-//	{	MAX_AMMO_BAR,	1,		20,		2000,	DELAY_LOW,		200,	0,		0,		MOD_BAR					},	//	WP_BAR					// 16
-	{   15,             1,      15,     1000,   DELAY_THROW,    1600,   0,      0,      MOD_GRENADE_PINEAPPLE   },  //	WP_GRENADE_PINEAPPLE	// 17
-//	{	5,				1,		5,		1000,	DELAY_SHOULDER,	1200,	0,		0,		MOD_ROCKET_LAUNCHER		},	//	WP_ROCKET_LAUNCHER		// 18
-
-	{   MAX_AMMO_MAUSER,1,      10,     3000,   0,              1700,   0,      0,      MOD_SNIPERRIFLE         },  //	WP_SNIPER_GER			// 19
-	{   MAX_AMMO_GARAND,1,      5,      3000,   0,              1200,   0,      0,      MOD_SNOOPERSCOPE        },  //	WP_SNIPER_AM			// 20
-//	{	MAX_AMMO_VENOM,	10,		300,	3000,	1200,			1200,	0,		0,		MOD_VENOM_FULL			},	//	WP_VENOM_FULL			// -
-//	{	MAX_AMMO_VENOM,	10,		300,	3000,	1000,			1000,	0,		0,		MOD_VENOM_FULL			},	//	WP_VENOM_FULL			// 21
-//	{	20,				1,		20,		1000,	DELAY_LOW,		1200,	0,		0,		MOD_SPEARGUN_CO2		},	//	WP_SPEARGUN_CO2			// 22
-
-	{   MAX_AMMO_FG42,  1,      20,     2000,   DELAY_LOW,      200,    0,      0,      MOD_FG42SCOPE           },  //	WP_FG42SCOPE			// 23
-//	{	MAX_AMMO_BAR,	1,		20,		2000,	DELAY_LOW,		90,		0,		0,		MOD_BAR					},	//	WP_BAR2					// 24
-	{   MAX_AMMO_9MM,   1,      32,     3100,   DELAY_LOW,      110,    700,    300,    MOD_STEN                },  //	WP_STEN					// 25
-	{   MAX_AMMO_9MM,   1,      8,      1500,   DELAY_PISTOL,   400,    0,      0,      MOD_SILENCER            },  //	WP_SILENCER				// 26
-	{   MAX_AMMO_45,    1,      8,      2700,   DELAY_PISTOL,   200,    0,      0,      MOD_AKIMBO              },  //	WP_AKIMBO				// 27
-
-	{   999,            0,      999,    0,      50,             0,      0,      0,      0                       },  //	WP_CLASS_SPECIAL		// 28	//	class_special
-//	{	100,			1,		100,	1000,	DELAY_PISTOL,	900,	0,		0,		MOD_CROSS				},	//	WP_CROSS				// 29
-	{   10,             1,      10,     1000,   DELAY_THROW,    1600,   0,      0,      MOD_DYNAMITE            },  //	WP_DYNAMITE				// 30
-//	{	10,				1,		10,		1000,	DELAY_THROW,	1600,	0,		0,		MOD_DYNAMITE			},	//	WP_DYNAMITE2			// 31
+    //	MAX				  USES	  MAX		      RELOAD  FIRE			  NEXT	  HEAT,	  COOL,	  MOD,	...
+    //	AMMO			  AMT.	  CLIP	          TIME	  DELAY			  SHOT
+    {   0,                0,      0,              0,      50,             0,      0,      0,      0                       },  //	WP_NONE					// 0
+    
+    {   999,              0,      999,            0,      50,             200,    0,      0,      MOD_KNIFE               },  //	WP_KNIFE				// 1
+    
+    {   MAX_AMMO_9MM,     1,      8,              1500,   DELAY_PISTOL,   400,    0,      0,      MOD_LUGER               },  //	WP_LUGER				// 2	// NOTE: also 32 round 'snail' magazine
+    {   MAX_AMMO_9MM,     1,      32,             2600,   DELAY_LOW,      100,    0,      0,      MOD_MP40                },  //	WP_MP40					// 3
+    {   MAX_AMMO_9MM,     1,      24,             3100,   DELAY_LOW,      120,    0,      0,      MOD_MP34                },  //	WP_MP34					// 4    // cybdmn adapted from RealRTCW 2.0
+    {   MAX_AMMO_MAUSER,  1,      5,              2500,   DELAY_HIGH,     1400,   0,      0,      MOD_MAUSER              },  //	WP_MAUSER				// 5	// NOTE: authentic clips are 5/10/25 rounds
+    {   MAX_AMMO_MAUSER,  1,      10,             1800,   DELAY_LOW,      300,    0,      0,      MOD_G43                 },  //	WP_G43				    // 6   // cybdmn adapted from RealRTCW 2.0
+    {   MAX_AMMO_44AMMO,  1,      30,             2600,   DELAY_LOW,      100,    0,      0,      MOD_MP44                },  //	WP_MP44					// 7   // cybdmn adapted from RealRTCW 2.0
+    {   MAX_AMMO_FG42,    1,      20,             2000,   DELAY_LOW,      180,    0,      0,      MOD_FG42                },  //	WP_FG42					// 8
+    {   MAX_GRENADES,     1,      MAX_GRENADES,   1000,   DELAY_THROW,    1600,   0,      0,      MOD_GRENADE_LAUNCHER    },  //	WP_GRENADE_LAUNCHER		// 9
+    {   MAX_PF_ROCKETS,   1,      1,              1000,   DELAY_SHOULDER, 2000,   0,      0,      MOD_PANZERFAUST         },  //	WP_PANZERFAUST			// 10
+    {   MAX_AMMO_VENOM,   1,      500,            3000,   750,            45,     3500,   200,    MOD_VENOM               },  //	WP_VENOM				// 11	// JPW NOTE: changed next_shot 50->45 to genlock firing to every server frame (fire rate shouldn't be framerate dependent now)
+    {   MAX_AMMO_MAUSER,  1,      50,             2600,   DELAY_LOW,      60,     1500,   250,    MOD_MG42M               },  //	WP_MG42M                // 12   // cybdmn adapted from RealRTCW 2.0
+    {   MAX_FUEL,         1,      MAX_FUEL,       1000,   DELAY_LOW,      50,     0,      0,      MOD_FLAMETHROWER        },  //	WP_FLAMETHROWER			// 13
+    {   MAX_CELLS,        1,      MAX_CELLS,      1000,   DELAY_LOW,      0,      0,      0,      MOD_TESLA               },  //	WP_TESLA				// 14
+    {   MAX_AMMO_45,      1,      7,              1500,   DELAY_PISTOL,   400,    0,      0,      MOD_COLT                },  //	WP_COLT					// 15
+    {   MAX_AMMO_TTAMMO,  1,      8,              1600,   DELAY_PISTOL,   400,    0,      0,      MOD_TT33                },  //	WP_TT33					// 16   // cybdmn adapted from RealRTCW 2.0
+    {   MAX_AMMO_45,      1,      30,             2400,   DELAY_LOW,      90,     0,      0,      MOD_THOMPSON            },  //	WP_THOMPSON				// 17	// NOTE: also 50 round drum magazine
+    {   MAX_AMMO_TTAMMO,  1,      71,             2900,   DELAY_LOW,      70,     0,      0,      MOD_PPSH                },  //	WP_PPSH					// 18   // cybdmn adapted from RealRTCW 2.0
+    {   MAX_AMMO_GARAND,  1,      5,              2500,   DELAY_HIGH,     1200,   0,      0,      MOD_GARAND              },  //	WP_GARAND				// 19	// NOTE: always 5 round clips
+    {   MAX_AMMO_BARAMMO, 1,      8,              1650,   DELAY_LOW,      300,    0,      0,      MOD_M1GARAND            },  //	WP_M1GARAND				// 20   // cybdmn adapted from RealRTCW 2.0
+    {   MAX_AMMO_MOSINA,  1,      5,              2400,   DELAY_HIGH,     1400,   0,      0,      MOD_MOSIN               },  //	WP_MOSIN				// 21   // cybdmn adapted from RealRTCW 2.0
+    {   MAX_AMMO_BARAMMO, 1,      20,             2250,   DELAY_LOW,      140,    0,      0,      MOD_BAR                 },  //	WP_BAR					// 22   // cybdmn adapted from RealRTCW 2.0
+    {   MAX_PINEAPPLES,   1,      MAX_PINEAPPLES, 1000,   DELAY_THROW,    1600,   0,      0,      MOD_GRENADE_PINEAPPLE   },  //	WP_GRENADE_PINEAPPLE	// 23
+    {   MAX_AMMO_MAUSER,  1,      5,              3000,   0,              1400,   0,      0,      MOD_SNIPERRIFLE         },  //	WP_SNIPER_GER			// 24
+    {   MAX_AMMO_GARAND,  1,      5,              3000,   0,              1200,   0,      0,      MOD_SNOOPERSCOPE        },  //	WP_SNIPER_AM			// 25
+    {   MAX_AMMO_FG42,    1,      20,             2000,   DELAY_LOW,      300,    0,      0,      MOD_FG42SCOPE           },  //	WP_FG42SCOPE			// 26
+    {   MAX_AMMO_9MM,     1,      32,             3100,   DELAY_LOW,      110,    900,    500,    MOD_STEN                },  //	WP_STEN					// 27
+    {   MAX_AMMO_9MM,     1,      8,              1500,   DELAY_PISTOL,   400,    0,      0,      MOD_SILENCER            },  //	WP_SILENCER				// 28
+    {   MAX_AMMO_45,      1,      7,              2700,   DELAY_PISTOL,   200,    0,      0,      MOD_AKIMBO              },  //	WP_AKIMBO				// 29
+    
+    {   999,              0,      999,            0,      50,             0,      0,      0,      0                       },  //	WP_CLASS_SPECIAL		// 30	//	class_special
+    {   MAX_DYNAMITE,     1,      MAX_DYNAMITE,   1000,   DELAY_THROW,    1600,   0,      0,      MOD_DYNAMITE            },  //	WP_DYNAMITE				// 31
 
 // stubs for some "not-real" weapons (so they always return "yes, you have enough ammo for that gauntlet", etc.)
 //	{	5,				1,		5,		1000,	DELAY_SHOULDER,	1200,	0,		0,		0 /*mod_prox*/			},	//	WP_PROX					// 32
@@ -143,23 +158,32 @@ int weapAlts[] = {
 	WP_NONE,            // 1 WP_KNIFE
 	WP_SILENCER,        // 2 WP_LUGER
 	WP_NONE,            // 3 WP_MP40
+    WP_NONE,            // 4 WP_MP34 // cybdmn adapted from RealRTCW 2.0
 	WP_SNIPERRIFLE,     // 4 WP_MAUSER
+    WP_NONE,            // 6 WP_G43  // cybdmn adapted from RealRTCW 2.0
+    WP_NONE,            // 7 WP_MP44 // cybdmn adapted from RealRTCW 2.0
 	WP_FG42SCOPE,       // 5 WP_FG42	// was SP5
 	WP_NONE,            // 6 WP_GRENADE_LAUNCHER
 	WP_NONE,            // 7 WP_PANZERFAUST
 	WP_NONE,            // 8 WP_VENOM
+    WP_NONE,            // 12 WP_MG42M // cybdmn adapted from RealRTCW 2.0
 	WP_NONE,            // 9 WP_FLAMETHROWER
 	WP_NONE,            // 10 WP_TESLA
 //	WP_SPEARGUN_CO2,	// 11 WP_SPEARGUN
 //	WP_NONE,			// 12 WP_KNIFE2
 	WP_AKIMBO,          // 13 WP_COLT		//----(SA)	new
+    WP_NONE,            // 16 WP_TT33 // cybdmn adapted from RealRTCW 2.0
 	WP_NONE,            // 14 WP_THOMPSON
+    WP_NONE,            // 18 WP_PPSH // cybdmn adapted from RealRTCW 2.0
 	WP_SNOOPERSCOPE,    // 15 WP_GARAND
 //	WP_BAR2,			// 16 WP_BAR		//----(SA)	modified
 	WP_NONE,            // 17 WP_GRENADE_PINEAPPLE
 //	WP_NONE,			// 18 WP_ROCKET_LAUNCHER
 	WP_MAUSER,          // 19 WP_SNIPERRIFLE
 	WP_GARAND,          // 20 WP_SNOOPERSCOPE
+    WP_NONE,            // 20 WP_M1GARAND // cybdmn adapted from RealRTCW 2.0
+    WP_NONE,            // 21 WP_MOSIN     // cybdmn adapted from RealRTCW 2.0
+    WP_NONE,            // 22 WP_BAR       // cybdmn adapted from RealRTCW 2.0
 //	WP_VENOM,			// 21 WP_VENOM_FULL
 //	WP_SPEARGUN,		// 22 WP_SPEARGUN_CO2
 	WP_FG42,            // 23 WP_FG42SCOPE
@@ -599,7 +623,8 @@ model="models/powerups/health/health_m.md3"
 		0,
 		"",
 		"",
-		{25,25,15,15}
+		//{25,25,15,15}
+        {25,25,15,10}  // cybdmn adapted from RealRTCW 2.0
 	},
 
 /*QUAKED item_health_large (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
@@ -621,7 +646,8 @@ model="models/powerups/health/health_l.md3"
 		0,
 		"",
 		"",
-		{50,50,30,20}
+		//{50,50,30,20}
+        {50,50,20,15}  // cybdmn adapted from RealRTCW 2.0
 	},
 
 /*QUAKED item_health_turkey (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
@@ -656,7 +682,8 @@ model="models/powerups/health/health_t1.md3"
 		0,
 		"",
 		"",
-		{45,35,25,15}   // amount given in first stage based on gameskill level
+		//{45,35,25,15}   // amount given in first stage based on gameskill level
+        {35,25,15,5}   // cybdmn adapted from RealRTCW 2.0
 	},
 
 /*QUAKED item_health_breadandmeat (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
@@ -689,7 +716,8 @@ model="models/powerups/health/health_b1.md3"
 		0,
 		"",
 		"",
-		{30,30,20,15}   // amount given in first stage based on gameskill level
+		//{30,30,20,15}   // amount given in first stage based on gameskill level
+        {25,25,15,5}   // cybdmn adapted from RealRTCW 2.0
 	},
 
 /*QUAKED item_health_wall_box (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED - - RESPAWN
@@ -715,7 +743,8 @@ model="models/powerups/health/health_wallbox.md3"
 		0,
 		"",
 		"",
-		{25,25,25,25}
+		//{25,25,25,25}
+        {25,25,15,15}  // cybdmn adapted from RealRTCW 2.0
 	},
 
 /*QUAKED item_health_wall (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED - - RESPAWN
@@ -1906,6 +1935,269 @@ weapon_class_special (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
 	// AMMO ITEMS
 	//
 
+//======================================================
+//  Weapons adapted from RealRTCW 2.0 start
+//======================================================
+    
+
+    /*QUAKED weapon_mp34 (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
+     "stand" values:
+     no value:	laying in a default position on it's side (default)
+     2:			upright, barrel pointing up, slightly angled (rack mount)
+     -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+     model="models\weapons2\mp34\mp34_3rd.md3"
+     */
+    {
+        "weapon_mp34",
+        "sound/misc/w_pkup.wav",
+        {   "models/weapons2/mp34/mp34_3rd.md3",
+            "models/weapons2/mp34/v_mp34.md3",
+            "models/weapons2/mp34/pu_mp34.md3",
+            0, 0 },
+        
+        "icons/iconw_mp34",    // icon
+        "icons/ammo9",       // ammo icon
+        "MP34",              // pickup
+        30,
+        IT_WEAPON,
+        WP_MP34,
+        WP_LUGER,
+        WP_MP34,
+        "",                  // precache
+        "",                  // sounds
+        {0,0,0,0}
+    },
+    
+    
+    /*QUAKED weapon_ppsh (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
+     "stand" values:
+     no value:	laying in a default position on it's side (default)
+     2:			upright, barrel pointing up, slightly angled (rack mount)
+     -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+     model="models\weapons2\ppsh\ppsh.md3"
+     */
+    {
+        "weapon_ppsh",
+        "sound/misc/w_pkup.wav",
+        {   "models/weapons2/ppsh/ppsh.md3",
+            "models/weapons2/ppsh/v_ppsh.md3",
+            "models/weapons2/ppsh/pu_ppsh.md3",
+            0, 0 },
+        
+        "icons/iconw_ppsh_1",   // icon
+        "icons/ammo9",       // ammo icon
+        "ppsh",              // pickup
+        30,
+        IT_WEAPON,
+        WP_PPSH,
+        WP_TT33,
+        WP_PPSH,
+        "",                  // precache
+        "",                  // sounds
+        {0,0,0,0}
+    },
+    
+    /*QUAKED weapon_g43 (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
+     "stand" values:
+     no value:	laying in a default position on it's side (default)
+     2:			upright, barrel pointing up, slightly angled (rack mount)
+     -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+     model="models\multiplayer\g43\g43.md3"
+     */
+    {
+        "weapon_g43",
+        "sound/misc/w_pkup.wav",
+        {   "models/multiplayer/g43/g43_3rd.md3",
+            "models/multiplayer/g43/g43.md3",
+            "models/multiplayer/g43/pu_g43.md3",
+            0, 0 },
+        
+        "icons/iconw_g43",    // icon
+        "icons/ammo2",       // ammo icon
+        "g43",              // pickup
+        30,
+        IT_WEAPON,
+        WP_G43,
+        WP_MAUSER,
+        WP_G43,
+        "",                  // precache
+        "",                  // sounds
+        {0,0,0,0}
+    },
+    
+    /*QUAKED weapon_mp44 (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
+     "stand" values:
+     no value:	laying in a default position on it's side (default)
+     2:			upright, barrel pointing up, slightly angled (rack mount)
+     -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+     model="models\weapons2\mp44\mp44.md3"
+     */
+    {
+        "weapon_mp44",
+        "sound/misc/w_pkup.wav",
+        {   "models/weapons2/mp44/mp44.md3",
+            "models/weapons2/mp44/v_mp44.md3",
+            "models/weapons2/mp44/pu_mp44.md3",
+            0, 0 },
+        
+        "icons/iconw_mp44",    // icon
+        "icons/ammomp44",       // ammo icon
+        "MP44",              // pickup
+        30,
+        IT_WEAPON,
+        WP_MP44,
+        WP_MP44,
+        WP_MP44,
+        "",                  // precache
+        "",                  // sounds
+        {0,0,0,0}
+    },
+    
+    
+    
+    /*QUAKED weapon_bar (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
+     "stand" values:
+     no value:	laying in a default position on it's side (default)
+     2:			upright, barrel pointing up, slightly angled (rack mount)
+     -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+     model="models\weapons2\bar\bar3rd.md3"
+     */
+    {
+        "weapon_bar",
+        "sound/misc/w_pkup.wav",
+        {   "models/weapons2/bar/bar3rd.md3",
+            "models/weapons2/bar/v_bar.md3",
+            "models/weapons2/bar/pu_bar.md3",
+            0, 0 },
+        
+        "icons/iconw_bar",    // icon
+        "icons/ammobar",      // ammo icon
+        "BAR",              // pickup
+        30,
+        IT_WEAPON,
+        WP_BAR,
+        WP_BAR,
+        WP_BAR,
+        "",                  // precache
+        "",                  // sounds
+        {0,0,0,0}
+    },
+    
+    
+    /*QUAKED weapon_m1_garand (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
+     "stand" values:
+     no value:	laying in a default position on it's side (default)
+     2:			upright, barrel pointing up, slightly angled (rack mount)
+     -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+     model="models\multiplayer\m1_garand\m1_garand_3rd.md3"
+     */
+    {
+        "weapon_m1garand",
+        "sound/misc/w_pkup.wav",
+        {   "models/multiplayer/m1_garand/m1_garand_3rd.md3",
+            "models/multiplayer/m1_garand/v_m1_garand.md3",
+            "models/multiplayer/mauser/mauser_pickup.md3",
+            0, 0 },
+        
+        "icons/iconw_m1garand",    // icon
+        "icons/ammobar",      // ammo icon
+        "m1garand",              // pickup
+        30,
+        IT_WEAPON,
+        WP_M1GARAND,
+        WP_BAR,
+        WP_M1GARAND,
+        "",                  // precache
+        "",                  // sounds
+        {0,0,0,0}
+    },
+    
+    /*QUAKED weapon_mosin (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
+     "stand" values:
+     no value:	laying in a default position on it's side (default)
+     2:			upright, barrel pointing up, slightly angled (rack mount)
+     -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+     model="models\weapons2\mosin\mosin.md3"
+     */
+    {
+        "weapon_mosin",
+        "sound/misc/w_pkup.wav",
+        {   "models/weapons2/mosin/mosin.md3",
+            "models/weapons2/mosin/v_mosin.md3",
+            "models/weapons2/mosin/pu_mosin.md3",
+            0, 0 },
+        
+        "icons/iconw_mosin",    // icon
+        "icons/ammomosin",      // ammo icon
+        "mosin",               // pickup
+        30,
+        IT_WEAPON,
+        WP_MOSIN,
+        WP_MOSIN,
+        WP_MOSIN,
+        "",                  // precache
+        "",                  // sounds
+        {0,0,0,0}
+    },
+    
+    /*QUAKED weapon_tt33 (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
+     "stand" values:
+     no value:	laying in a default position on it's side (default)
+     2:			upright, barrel pointing up, slightly angled (rack mount)
+     -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+     model="models\weapons2\tt33\tt33.md3"
+     */
+    {
+        "weapon_tt33",
+        "sound/misc/w_pkup.wav",
+        {   "models/weapons2/tt33/tt33.md3",
+            "models/weapons2/tt33/v_tt33.md3",
+            "models/weapons2/tt33/pu_tt33.md3",
+            0, 0 },
+        
+        "icons/iconw_tt33",    // icon
+        "icons/ammoppsh",      // ammo icon
+        "tt33",              // pickup
+        30,
+        IT_WEAPON,
+        WP_TT33,
+        WP_TT33,
+        WP_TT33,
+        "",                  // precache
+        "",                  // sounds
+        {0,0,0,0}
+    },
+    
+    /*QUAKED weapon_mg42m (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
+     -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+     model="models/multiplayer/mg42/v_mg42.md3"
+     */
+    {
+        "weapon_mg42m",
+        "sound/misc/w_pkup.wav",
+        {   "models/multiplayer/mg42/mg42_3rd.md3",
+            "models/multiplayer/mg42/v_mg42.md3",
+            "models/mulitplayer/mg42/mg42_pickup.md3",
+            0, 0 },
+        
+        "icons/iconw_mg42m",   // icon
+        "icons/ammo8",           // ammo icon
+        "mg42m",             // pickup
+        700,
+        IT_WEAPON,
+        WP_MG42M,
+        WP_MAUSER,
+        WP_MG42M,
+        "",                      // precache
+        "",                      // sounds
+        {0,0,0,0}
+    },
+    
+    
+//======================================================
+//  Weapons adapted from RealRTCW 2.0 end
+//======================================================
+    
 
 
 /*QUAKED ammo_9mm_small (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
@@ -1929,7 +2221,8 @@ model="models/powerups/ammo/am9mm_s.md3"
 		WP_LUGER,
 		"",                  // precache
 		"",                  // sounds
-		{32,24,16,16}
+		//{32,24,16,16}
+        {32,24,16,8}	// cybdmn adapted from RealRTCW 2.0
 	},
 /*QUAKED ammo_9mm (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
 used by: Luger pistol, MP40 machinegun
@@ -1952,7 +2245,8 @@ model="models/powerups/ammo/am9mm_m.md3"
 		WP_LUGER,
 		"",                  // precache
 		"",                  // sounds
-		{64,48,32,32}
+		//{64,48,32,32}
+        {64,64,32,32}	// cybdmn adapted from RealRTCW 2.0
 	},
 /*QUAKED ammo_9mm_large (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
 used by: Luger pistol, MP40 machinegun
@@ -1975,7 +2269,8 @@ model="models/powerups/ammo/am9mm_l.md3"
 		WP_LUGER,
 		"",                  // precache
 		"",                  // sounds
-		{96,64,48,48}
+		//{96,64,48,48}
+        {192,144,96,64}	// cybdmn adapted from RealRTCW 2.0
 	},
 
 
@@ -2000,7 +2295,8 @@ model="models/powerups/ammo/am45cal_s.md3"
 		WP_COLT,
 		"",                  // precache
 		"",                  // sounds
-		{30,20,15,15}
+		//{30,20,15,15}
+        {50,50,30,30}		// // cybdmn adapted from RealRTCW 2.0
 	},
 /*QUAKED ammo_45cal (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
 used by: Thompson, Colt
@@ -2023,7 +2319,8 @@ model="models/powerups/ammo/am45cal_m.md3"
 		WP_COLT,
 		"",                  // precache
 		"",                  // sounds
-		{60,45,30,30}
+		//{60,45,30,30}
+        {100,100,60,60}		// cybdmn adapted from RealRTCW 2.0
 	},
 /*QUAKED ammo_45cal_large (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
 used by: Thompson, Colt
@@ -2046,7 +2343,8 @@ model="models/powerups/ammo/am45cal_l.md3"
 		WP_COLT,
 		"",                  // precache
 		"",                  // sounds
-		{90,60,45,45}
+		//{90,60,45,45}
+        {140,140,90,75}		// cybdmn adapted from RealRTCW 2.0
 	},
 
 
@@ -2073,7 +2371,8 @@ model="models/powerups/ammo/am792mm_s.md3"
 		WP_MAUSER,
 		"",                          // precache
 		"",                          // sounds
-		{16,12,8,8}
+		//{16,12,8,8}
+        {20,20,10,10}		// cybdmn adapted from RealRTCW 2.0
 	},
 /*QUAKED ammo_792mm (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
 used by: Mauser rifle, FG42
@@ -2096,7 +2395,8 @@ model="models/powerups/ammo/am792mm_m.md3"
 		WP_MAUSER,
 		"",                          // precache
 		"",                          // sounds
-		{32,24,16,16}
+		//{32,24,16,16}
+        {40,40,20,20}		// cybdmn adapted from RealRTCW 2.0
 	},
 /*QUAKED ammo_792mm_large (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
 used by: Mauser rifle, FG42
@@ -2119,7 +2419,8 @@ model="models/powerups/ammo/am792mm_l.md3"
 		WP_MAUSER,
 		"",                          // precache
 		"",                          // sounds
-		{48,32,24,24}
+		//{48,32,24,24}
+        {70,70,40,30}		// cybdmn adapted from RealRTCW 2.0
 	},
 
 
@@ -2146,7 +2447,8 @@ model="models/powerups/ammo/am30cal_s.md3"
 		WP_GARAND,
 		"",                          // precache
 		"",                          // sounds
-		{5,2,2,2}
+		//{5,2,2,2}
+        {5,5,3,3}			// cybdmn adapted from RealRTCW 2.0
 	},
 /*QUAKED ammo_30cal (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
 used by: Garand rifle
@@ -2169,7 +2471,8 @@ model="models/powerups/ammo/am30cal_m.md3"
 		WP_GARAND,
 		"",                          // precache
 		"",                          // sounds
-		{5,5,5,5    }
+		//{5,5,5,5    }
+        {10,10,6,5}		// cybdmn adapted from RealRTCW 2.0
 	},
 /*QUAKED ammo_30cal_large (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
 used by: Garand rifle
@@ -2192,7 +2495,8 @@ model="models/powerups/ammo/am30cal_l.md3"
 		WP_GARAND,
 		"",                          // precache
 		"",                          // sounds
-		{10,10,10,5}
+		//{10,10,10,5}
+        {10,10,10,10}		// cybdmn adapted from RealRTCW 2.0
 	},
 
 
@@ -2219,7 +2523,8 @@ model="models/powerups/ammo/am127mm.md3"
 		WP_VENOM,
 		"",                          // precache
 		"",                          // sounds
-		{100,75,50,50}
+		//{100,75,50,50}
+        {125,125,75,50}		// cybdmn adapted from RealRTCW 2.0
 	},
 
 /*QUAKED ammo_grenades (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
@@ -2242,7 +2547,8 @@ model="models/powerups/ammo/amgren_bag.md3"
 		WP_GRENADE_LAUNCHER,
 		"",                      // precache
 		"",                      // sounds
-		{5,4,3,3}
+		//{5,4,3,3}
+        {4,4,3,2} // cybdmn adapted from RealRTCW 2.0
 	},
 
 /*QUAKED ammo_grenades_american (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
@@ -2314,7 +2620,8 @@ model="models/powerups/ammo/amcell.md3"
 		WP_TESLA,
 		"",                  // precache
 		"",                  // sounds
-		{100,75,50,50}
+		//{100,75,50,50}
+        {100,75,50,25}		// cybdmn adapted from RealRTCW 2.0
 	},
 
 
@@ -2340,7 +2647,8 @@ model="models/powerups/ammo/amfuel.md3"
 		WP_FLAMETHROWER,
 		"",                  // precache
 		"",                  // sounds
-		{100,75,50,50}
+		//{100,75,50,50}
+        {100,100,75,50}		// cybdmn adapted from RealRTCW 2.0/Knightmare
 	},
 
 
@@ -2506,7 +2814,186 @@ used by: Monster Attack 1 (specific to each monster)
 		{0,0,0,0}
 	},
 
+    
+//======================================================
+//  Ammo adapted from RealRTCW 2.0 start
+//======================================================
+    
 
+    /*QUAKED ammo_ttammo (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
+     used by: TT33, PPSH
+     
+     -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+     model="models/powerups/ammo/ttammo.md3"
+     */
+    {
+        "ammo_ttammo",
+        "sound/misc/am_pkup.wav",
+        { "models/powerups/ammo/ttammo.md3",
+            0, 0, 0,    0 },
+        "icons/iconw_luger_1", // icon
+        NULL,               // ammo icon
+        "ttammo",           // pickup
+        60,
+        IT_AMMO,
+        WP_PPSH,
+        WP_TT33,
+        WP_PPSH,
+        "",                  // precache
+        "",                  // sounds
+        {71,71,50,30}
+    },
+    
+    /*QUAKED ammo_ttammo_l (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
+     used by: TT33, PPSH
+     
+     -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+     model="models/powerups/ammo/ttammo.md3"
+     */
+    {
+        "ammo_ttammo_l",
+        "sound/misc/am_pkup.wav",
+        { "models/powerups/ammo/ttammo_l.md3",
+            0, 0, 0,    0 },
+        "icons/iconw_luger_1", // icon
+        NULL,               // ammo icon
+        "ttammol",           // pickup
+        60,
+        IT_AMMO,
+        WP_PPSH,
+        WP_TT33,
+        WP_PPSH,
+        "",                  // precache
+        "",                  // sounds
+        {142,142,100,100}
+    },
+    
+    /*QUAKED ammo_44ammo (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
+     used by: MP44
+     
+     -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+     model="models/powerups/ammo/44ammo.md3"
+     */
+    {
+        "ammo_44ammo",
+        "sound/misc/am_pkup.wav",
+        { "models/powerups/ammo/44ammo.md3",
+            0, 0, 0,    0 },
+        "icons/iconw_luger_1", // icon
+        NULL,               // ammo icon
+        "44ammo",           // pickup
+        60,
+        IT_AMMO,
+        WP_MP44,
+        WP_MP44,
+        WP_MP44,
+        "",                  // precache
+        "",                  // sounds
+        {60,60,45,45}
+    },
+    
+    /*QUAKED ammo_44ammo_l (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
+     used by: MP44
+     
+     -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+     model="models/powerups/ammo/44ammo_l.md3"
+     */
+    {
+        "ammo_44ammo_l",
+        "sound/misc/am_pkup.wav",
+        { "models/powerups/ammo/44ammo_l.md3",
+            0, 0, 0,    0 },
+        "icons/iconw_luger_1", // icon
+        NULL,               // ammo icon
+        "44ammol",           // pickup
+        60,
+        IT_AMMO,
+        WP_MP44,
+        WP_MP44,
+        WP_MP44,
+        "",                  // precache
+        "",                  // sounds
+        {90,90,75,75}
+    },
+    
+    /*QUAKED ammo_barammo (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
+     used by: Bar, M1 Garand
+     
+     -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+     model="models/powerups/ammo/barammo.md3"
+     */
+    {
+        "ammo_barammo",
+        "sound/misc/am_pkup.wav",
+        { "models/powerups/ammo/barammo.md3",
+            0, 0, 0,    0 },
+        "icons/iconw_luger_1", // icon
+        NULL,               // ammo icon
+        "barammo",           // pickup			//----(SA)	changed
+        60,
+        IT_AMMO,
+        WP_BAR,
+        WP_M1GARAND,
+        WP_BAR,
+        "",                  // precache
+        "",                  // sounds
+        {40,40,30,30}
+    },
+    
+    /*QUAKED ammo_barammo_l (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
+     used by: Bar, M1 Garand
+     
+     -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+     model="models/powerups/ammo/barammo_l.md3"
+     */
+    {
+        "ammo_barammo_l",
+        "sound/misc/am_pkup.wav",
+        { "models/powerups/ammo/barammo_l.md3",
+            0, 0, 0,    0 },
+        "icons/iconw_luger_1", // icon
+        NULL,               // ammo icon
+        "barammol",           // pickup			//----(SA)	changed
+        60,
+        IT_AMMO,
+        WP_BAR,
+        WP_M1GARAND,
+        WP_BAR,
+        "",                  // precache
+        "",                  // sounds
+        {60,60,45,45}	
+    },
+    
+    /*QUAKED ammo_mosina (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN
+     used by: mosin nagant
+     
+     -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+     model="models/powerups/ammo/mosina.md3"
+     */
+    {
+        "ammo_mosina",
+        "sound/misc/am_pkup.wav",
+        { "models/powerups/ammo/mosina.md3",
+            0, 0, 0,    0 },
+        "icons/icona_machinegun",    // icon
+        NULL,                       // ammo icon
+        "mosina",			       // pickup
+        50,
+        IT_AMMO,
+        WP_MOSIN,
+        WP_MOSIN,
+        WP_MOSIN,
+        "",                          // precache
+        "",                          // sounds
+        {20,20,15,10}		
+    },
+    
+    
+//======================================================
+//  Ammo adapted from RealRTCW 2.0 end
+//======================================================
+    
+    
 	//
 	// HOLDABLE ITEMS
 	//

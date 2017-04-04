@@ -497,9 +497,11 @@ float AICast_WeaponRange( cast_state_t *cs, int weaponnum ) {
 				return 120;     // come in real close
 			}
 		case AICHAR_HELGA:  // helga BOSS1 melee
-			return 80;
+			//return 80;
+            return 100;  // cybdmn adapted from RealRTCW 2.0
 		case AICHAR_WARZOMBIE:
-			return 80;      // make it larger so we can start swinging early, and move in while swinging
+			//return 80;      // make it larger so we can start swinging early, and move in while swinging
+            return 90;      // cybdmn adapted from RealRTCW 2.0
 		case AICHAR_LOPER:  // close attack, head-butt, fist
 			return 60;
 		case AICHAR_BLACKGUARD:
@@ -517,7 +519,8 @@ float AICast_WeaponRange( cast_state_t *cs, int weaponnum ) {
 		case AICHAR_ZOMBIE: // zombie spirit attack
 			return 1000;
 		case AICHAR_HELGA:  // zombie spirit attack
-			return 1900;
+			//return 1900;
+            return 2000; // cybdmn adapted from RealRTCW 2.0
 		case AICHAR_LOPER:  // loper leap attack
 			return 8000;    // use it to gain on them also
 		}
@@ -1574,6 +1577,7 @@ qboolean AICast_CanMoveWhileFiringWeapon( int weaponnum ) {
 	case WP_MAUSER:
 	case WP_GARAND:
 	case WP_SNIPERRIFLE:    //----(SA)	added
+    case WP_MOSIN:          // cybdmn adapted from RealRTCW 2.0
 	case WP_SNOOPERSCOPE:   //----(SA)	added
 //	case WP_FG42SCOPE:		//----(SA)	added
 	case WP_PANZERFAUST:
@@ -1841,6 +1845,7 @@ float AICast_GetWeaponSoundRange( int weapon ) {
 	case    WP_LUGER:
 	case    WP_COLT:
 	case    WP_AKIMBO:
+    case    WP_TT33: // cybdmn adapted from RealRTCW 2.0
 		return 700;
 
 	case    WP_MONSTER_ATTACK1:
@@ -1851,14 +1856,22 @@ float AICast_GetWeaponSoundRange( int weapon ) {
 
 	case    WP_MP40:
 	case    WP_THOMPSON:
+    case    WP_MP34: // cybdmn adapted from RealRTCW 2.0
+    case    WP_PPSH: // cybdmn adapted from RealRTCW 2.0
 		return 1000;
 
 	case    WP_FG42:
 	case    WP_FG42SCOPE:
+    case    WP_MP44: // cybdmn adapted from RealRTCW 2.0
+    case    WP_BAR: // cybdmn adapted from RealRTCW 2.0
+    case    WP_G43: // cybdmn adapted from RealRTCW 2.0
+    case    WP_MG42M: // cybdmn adapted from RealRTCW 2.0
+    case    WP_M1GARAND: // cybdmn adapted from RealRTCW 2.0
 		return 1500;
 
 	case    WP_SNIPERRIFLE:
 	case    WP_MAUSER:
+    case    WP_MOSIN:// cybdmn adapted from RealRTCW 2.0
 		return 2000;
 
 	case    WP_DYNAMITE:
