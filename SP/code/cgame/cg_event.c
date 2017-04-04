@@ -261,7 +261,31 @@ static void CG_Obituary( entityState_t *ent ) {
 		case MOD_MP40:
 			message = "was killed by";
 			message2 = "'s MP40";
-			break;
+            break;
+
+// cybdmn adapted from RealRTCW 2.0 start
+                
+        case MOD_MP44:
+            message = "was killed (mp44) by";
+        case MOD_G43:
+            message = "was killed (G43) by";
+        case MOD_M1GARAND:
+            message = "was killed (m1garand) by";
+        case MOD_MOSIN:
+            message = "was killed (mosin) by";
+        case MOD_MG42M:
+            message = "was killed (mg42m) by";
+        case MOD_PPSH:
+            message = "was killed (ppsh) by";
+        case MOD_TT33:
+            message = "was killed (tt33) by";
+        case MOD_BAR:
+            message = "was killed (bar) by";
+        case MOD_MP34:
+            message = "was killed (mp34) by";
+                
+// cybdmn adapted from RealRTCW 2.0 end
+                
 		case MOD_THOMPSON:
 			message = "was killed by";
 			message2 = "'s Thompson";

@@ -53,18 +53,17 @@ static int maxWeapBanks = MAX_WEAP_BANKS, maxWeapsInBank = MAX_WEAPS_IN_BANK; //
 
 int weapBanks[MAX_WEAP_BANKS][MAX_WEAPS_IN_BANK] = {
 	// bank
-	{0,                     0,                      0           },  //	0 (empty)
-
-	{WP_KNIFE,              0,                      0           },  //	1
-	{WP_LUGER,              WP_COLT,                0           },  //	2	// WP_AKIMBO
-	{WP_MP40,               WP_THOMPSON,            WP_STEN     },  //	3
-	{WP_MAUSER,             WP_GARAND,              0           },  //	4
-	{WP_FG42,               0,                      0           },  //	5
-	{WP_GRENADE_LAUNCHER,   WP_GRENADE_PINEAPPLE,   WP_DYNAMITE },  //	6
-	{WP_PANZERFAUST,        0,                      0           },  //	7
-	{WP_VENOM,              0,                      0           },  //	8
-	{WP_FLAMETHROWER,       0,                      0           },  //	9
-	{WP_TESLA,              0,                      0           }   //	10
+    {0,                     0,                      0,           0,           0           },  //	0 (empty)
+    {WP_KNIFE,              0,                      0,           0,           0           },  //	1
+    {WP_LUGER,              WP_COLT,                WP_TT33,     0,           0           },  //	2	// WP_AKIMBO
+    {WP_MP40,               WP_THOMPSON,            WP_STEN,     WP_MP34,     WP_PPSH     },  //	3	// cybdmn WP_MP34 and WP_PPSH adapted from RealRTCW 2.0
+    {WP_MAUSER,             WP_GARAND,              WP_G43,      WP_M1GARAND, WP_MOSIN    },  //	4	// cybdmn WP_G43, WP_M1GARAND and WP_MOSIN adapted from RealRTCW 2.0
+    {WP_FG42,               WP_MP44,                WP_BAR,      0,           0           },  //	5	// cybdmn WP_MP44 and WP_BAR adapted from RealRTCW 2.0
+    {WP_GRENADE_LAUNCHER,   WP_GRENADE_PINEAPPLE,   WP_DYNAMITE, 0,           0           },  //	6
+    {WP_PANZERFAUST,        0,                      0,           0,           0           },  //	7
+    {WP_VENOM,              WP_MG42M,               0,           0,           0           },  //	8	// cybdmn WP_MG42M adapted from RealRTCW 2.0
+    {WP_FLAMETHROWER,       0,                      0,           0,           0           },  //	9
+    {WP_TESLA,              0,                      0,           0,           0           }   //	10
 };
 
 // JPW NERVE -- in mutiplayer, characters get knife/special on button 1, pistols on 2, 2-handed on 3
@@ -1200,13 +1199,94 @@ void CG_RegisterWeapon( int weaponNum ) {
 	case WP_MONSTER_ATTACK2:
 	case WP_MONSTER_ATTACK3:
 		break;
+            
+// cybdmn adapted from RealRTCW 2.0 start
+            
+        case WP_TT33:
+            MAKERGB( weaponInfo->flashDlightColor, 1.0, 0.6, 0.23 );
+            weaponInfo->flashSound[0] = trap_S_RegisterSound( "sound/weapons/tt33/tt33f1.wav" );
+            weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/colt/colte1.wav" );
+            weaponInfo->reloadSound = trap_S_RegisterSound( "sound/weapons/tt33/tt33_reload.wav" );
+            weaponInfo->ejectBrassFunc = CG_MachineGunEjectBrass;
+            break;
+            
+        case WP_G43:
+            MAKERGB( weaponInfo->flashDlightColor, 1.0, 0.6, 0.23 );
+            weaponInfo->flashSound[0] = trap_S_RegisterSound( "sound/weapons/g43/g43f1.wav" );
+            weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/g43/g43e1.wav" );
+            weaponInfo->reloadSound = trap_S_RegisterSound( "sound/weapons/g43/g43_reload.wav" );
+            break;
+            
+        case WP_MOSIN:
+            MAKERGB( weaponInfo->flashDlightColor, 1.0, 0.6, 0.23 );
+            weaponInfo->flashSound[0] = trap_S_RegisterSound( "sound/weapons/mosin/mosinf1.wav" );
+            weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/mauser/mausere1.wav" );
+            weaponInfo->reloadSound = trap_S_RegisterSound( "sound/weapons/mosin/mosin_reload.wav" );
+            weaponInfo->ejectBrassFunc = CG_MachineGunEjectBrass;
+            break;
+            
+        case WP_M1GARAND:
+            MAKERGB( weaponInfo->flashDlightColor, 1.0, 0.6, 0.23 );
+            weaponInfo->flashSound[0] = trap_S_RegisterSound( "sound/weapons/m1_garand/m1garandf1.wav" );
+            weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/m1_garand/m1garande1.wav" );
+            weaponInfo->reloadSound = trap_S_RegisterSound( "sound/weapons/m1_garand/m1garand_reload.wav" );
+            weaponInfo->lastShotSound[0] = trap_S_RegisterSound( "sound/weapons/m1_garand/m1garandf1_last.wav" );
+            weaponInfo->ejectBrassFunc = CG_MachineGunEjectBrass;
+            break;
+            
+        case WP_MP34:
+            MAKERGB( weaponInfo->flashDlightColor, 1.0, 0.6, 0.23 );
+            weaponInfo->flashSound[0] = trap_S_RegisterSound( "sound/weapons/mp34/mp34f1.wav" );
+            weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/mp40/mp40e1.wav" );
+            weaponInfo->reloadSound = trap_S_RegisterSound( "sound/weapons/mp34/mp34_reload.wav" );
+            weaponInfo->overheatSound = trap_S_RegisterSound( "sound/weapons/mp40/mp40_overheat.wav" );
+            weaponInfo->ejectBrassFunc = CG_MachineGunEjectBrass;
+            break;
+            
+        case WP_PPSH:
+            MAKERGB( weaponInfo->flashDlightColor, 1.0, 0.6, 0.23 );
+            weaponInfo->flashSound[0] = trap_S_RegisterSound( "sound/weapons/ppsh/ppshf1.wav" );
+            weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/mp40/mp40e1.wav" );
+            weaponInfo->reloadSound = trap_S_RegisterSound( "sound/weapons/ppsh/ppsh_reload.wav" );
+            weaponInfo->ejectBrassFunc = CG_MachineGunEjectBrass;
+            break;
+            
+        case WP_MP44:
+            MAKERGB( weaponInfo->flashDlightColor, 1.0, 0.6, 0.23 );
+            weaponInfo->flashSound[0] = trap_S_RegisterSound( "sound/weapons/mp44/mp44.wav" );
+            weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/fg42/fg42e1.wav" );
+            weaponInfo->reloadSound = trap_S_RegisterSound( "sound/weapons/mp44/mp44_reload.wav" );
+            weaponInfo->overheatSound = trap_S_RegisterSound( "sound/weapons/mp44/mp44_overheat.wav" );
+            weaponInfo->ejectBrassFunc = CG_MachineGunEjectBrass;
+            break;
+            
+        case WP_BAR:
+            MAKERGB( weaponInfo->flashDlightColor, 1.0, 0.6, 0.23 );
+            weaponInfo->flashSound[0] = trap_S_RegisterSound( "sound/weapons/bar/barf1.wav" );
+            weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/bar/bare1.wav" );
+            weaponInfo->reloadSound = trap_S_RegisterSound( "sound/weapons/bar/bar_reload.wav" );
+            weaponInfo->ejectBrassFunc = CG_MachineGunEjectBrass;
+            break;
+            
+        case WP_MG42M:
+            MAKERGB( weaponInfo->flashDlightColor, 1.0, 0.6, 0.23 );
+            weaponInfo->flashSound[0] = trap_S_RegisterSound( "sound/weapons/mg42m/mg42mf1.wav" );
+            weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/mg42m/mg42me1.wav" );
+            weaponInfo->reloadSound = trap_S_RegisterSound( "sound/weapons/mg42m/mg42m_reload.wav" );
+            weaponInfo->overheatSound = trap_S_RegisterSound( "sound/weapons/mg42m/mg42m_heat.wav" );
+            weaponInfo->ejectBrassFunc = CG_MachineGunEjectBrass;
+            break;
+            
+// cybdmn adapted from RealRTCW 2.0 end
 
 
 	case WP_AKIMBO: //----(SA)	added
 		// same as colt
 		MAKERGB( weaponInfo->flashDlightColor, 1.0, 0.6, 0.23 );
 		weaponInfo->flashSound[0] = trap_S_RegisterSound( "sound/weapons/colt/coltf1.wav" );
-		weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/mp40/mp40e1.wav" ); // use same as mp40
+		//weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/mp40/mp40e1.wav" ); // use same as mp40
+        weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/colt/colte1.wav" );  // cybdmn adapted from RealRTCW 2.0
+            
 		weaponInfo->ejectBrassFunc = CG_MachineGunEjectBrass;
 
 		// unique
@@ -1216,7 +1296,8 @@ void CG_RegisterWeapon( int weaponNum ) {
 	case WP_COLT:
 		MAKERGB( weaponInfo->flashDlightColor, 1.0, 0.6, 0.23 );
 		weaponInfo->flashSound[0] = trap_S_RegisterSound( "sound/weapons/colt/coltf1.wav" );
-		weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/mp40/mp40e1.wav" ); // use same as mp40
+	//	weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/mp40/mp40e1.wav" ); // use same as mp40
+        weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/colt/colte1.wav" );  // cybdmn adapted from RealRTCW 2.0
 		weaponInfo->reloadSound = trap_S_RegisterSound( "sound/weapons/colt/colt_reload.wav" );
 		weaponInfo->ejectBrassFunc = CG_MachineGunEjectBrass;
 		break;
@@ -1233,7 +1314,8 @@ void CG_RegisterWeapon( int weaponNum ) {
 		weaponInfo->switchSound[0] = trap_S_RegisterSound( "sound/weapons/luger/silencerremove.wav" );   //----(SA)	added
 
 		weaponInfo->flashSound[0] = trap_S_RegisterSound( "sound/weapons/luger/lugerf1.wav" );
-		weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/mp40/mp40e1.wav" ); // use same as mp40
+	//	weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/mp40/mp40e1.wav" ); // use same as mp40
+        weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/luger/lugere1.wav" );  // cybdmn adapted from RealRTCW 2.0
 		weaponInfo->reloadSound = trap_S_RegisterSound( "sound/weapons/luger/luger_reload.wav" );
 		weaponInfo->ejectBrassFunc = CG_MachineGunEjectBrass;
 		break;
@@ -1280,7 +1362,8 @@ void CG_RegisterWeapon( int weaponNum ) {
 	case WP_THOMPSON:
 		MAKERGB( weaponInfo->flashDlightColor, 1.0, 0.6, 0.23 );
 		weaponInfo->flashSound[0] = trap_S_RegisterSound( "sound/weapons/thompson/thompson.wav" );
-		weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/mp40/mp40e1.wav" ); // use same as mp40
+	//	weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/mp40/mp40e1.wav" ); // use same as mp40
+        weaponInfo->flashEchoSound[0] = trap_S_RegisterSound( "sound/weapons/thompson/thompsone1.wav" ); // cybdmn adapted from RealRTCW 2.0
 		weaponInfo->reloadSound = trap_S_RegisterSound( "sound/weapons/thompson/thompson_reload.wav" );
 		weaponInfo->overheatSound = trap_S_RegisterSound( "sound/weapons/thompson/thompson_overheat.wav" );
 		weaponInfo->ejectBrassFunc = CG_MachineGunEjectBrass;
@@ -3136,6 +3219,20 @@ void CG_DrawWeaponSelect( void ) {
 		case WP_FLAMETHROWER:
 		case WP_FG42:
 		case WP_FG42SCOPE:
+        
+// cybdmn adapted from RealRTCW 2.0 start.
+                
+        case WP_M1GARAND:
+        case WP_MG42M:
+        case WP_PPSH:
+        case WP_MOSIN:
+        case WP_MP34:
+        case WP_G43:
+        case WP_MP44:
+        case WP_BAR:
+                
+// cybdmn adapted from RealRTCW 2.0 end.
+                
 			wideweap = qtrue;
 			break;
 		default:
@@ -4587,12 +4684,16 @@ void CG_WeaponFireRecoil( int weapon ) {
 	case WP_LUGER:
 	case WP_SILENCER:
 	case WP_COLT:
+    case WP_TT33: // cybdmn adapted from RealRTCW 2.0
 	case WP_AKIMBO: //----(SA)	added
 		//pitchAdd = 2+rand()%3;
 		//yawRandom = 2;
 		break;
 	case WP_MAUSER:
 	case WP_GARAND:
+    case WP_G43:  // cybdmn adapted from RealRTCW 2.0
+    case WP_M1GARAND:  // cybdmn adapted from RealRTCW 2.0
+    case WP_MOSIN:  // cybdmn adapted from RealRTCW 2.0
 		//pitchAdd = 4+rand()%3;
 		//yawRandom = 4;
 		pitchAdd = 2;   //----(SA)	for DM
@@ -4603,6 +4704,7 @@ void CG_WeaponFireRecoil( int weapon ) {
 		pitchAdd = 0.6;
 		break;
 	case WP_FG42SCOPE:
+            
 	case WP_FG42:
 	case WP_MP40:
 	case WP_THOMPSON:

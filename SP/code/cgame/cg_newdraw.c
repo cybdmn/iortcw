@@ -252,6 +252,16 @@ static int weapIconDrawSize( int weap ) {
 	case WP_FG42SCOPE:
 	case WP_SNOOPERSCOPE:
 	case WP_SNIPERRIFLE:
+// cybdmn adapted from RealRTCW 2.0 start
+    case WP_PPSH:
+    case WP_G43:
+    case WP_MP44:
+    case WP_MG42M:
+    case WP_MOSIN:
+    case WP_M1GARAND:
+    case WP_BAR:
+    case WP_MP34:
+// cybdmn adapted from RealRTCW 2.0 end
 		return 2;
 	}
 
